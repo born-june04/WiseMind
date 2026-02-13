@@ -72,3 +72,4 @@ npm run dev
 | **Frontend** | Next.js / React |
 | **Inference** | HuggingFace Transformers (bfloat16, multi-GPU) |
 | **Hardware** | 2× NVIDIA L40S (46GB each) |
+
