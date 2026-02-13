@@ -1,0 +1,6 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/born-june04/wisefind.git
+[submodule "ui"]
+	path = ui
+	url = https://github.com/nguyenmx/WiseMind-UI.git
