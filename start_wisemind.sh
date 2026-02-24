@@ -1,87 +1,209 @@
 #!/usr/bin/env bash
 # ──────────────────────────────────────────────────────────────
-# WiseMind — Start both Backend API + UI on wisemind server
-# 
-# Usage:  ./start_wisemind.sh
-#   (run on wisemind server, then port-forward from Hyak/local)
+# WiseMind — Start / Stop / Status for all services
 #
-# Port Forwarding (from Hyak):
-#   ssh -N -L 3000:localhost:3000 -L 5001:localhost:5001 wisemind@10.72.127.149
+# Usage:
+#   ./start_wisemind.sh          # start all services
+#   ./start_wisemind.sh stop     # stop all services
+#   ./start_wisemind.sh status   # check service status
+#   ./start_wisemind.sh logs     # tail all logs
 #
-# Port Forwarding (from local):
-#   ssh -N -L 3000:localhost:3000 -L 5001:localhost:5001 june0604@klone-login01.hyak.uw.edu
+# Architecture:
+#   [Host]   MongoDB (:27017), Ollama (:11434), Frontend UI (:3000)
+#   [Docker] Backend API (:5001) — NGC PyTorch container with GPU
 #
-# Then open: http://localhost:3000
+# Access:
+#   Internal: http://10.72.127.149:3000
+#   External (SSH tunnel):
+#     ssh -N -L 3000:localhost:3000 -L 5001:localhost:5001 wisemind@10.72.127.149
+#     Then open: http://localhost:3000
 # ──────────────────────────────────────────────────────────────
-set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-BACKEND_DIR="$SCRIPT_DIR/backend"
 UI_DIR="$SCRIPT_DIR/ui"
+LOG_DIR="$SCRIPT_DIR/logs"
 
-# Ollama model (override with: OLLAMA_MODEL=xxx ./start_wisemind.sh)
+BACKEND_PORT=5001
+FRONTEND_PORT=3000
+CONTAINER_NAME="wisemind-backend"
+NGC_IMAGE="nvcr.io/nvidia/pytorch:25.12-py3"
+
 export OLLAMA_MODEL="${OLLAMA_MODEL:-alibayram/medgemma:27b}"
 export OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-http://localhost:11434}"
 
-# Activate conda
-source ~/miniconda3/etc/profile.d/conda.sh
-conda activate wisefind
+mkdir -p "$LOG_DIR"
 
-echo "╔══════════════════════════════════════════════════════╗"
-echo "║           WiseMind — Starting Services               ║"
-echo "╠══════════════════════════════════════════════════════╣"
-echo "║  Backend API:  http://localhost:5001                 ║"
-echo "║  Frontend UI:  http://localhost:3000                 ║"
-echo "║  MongoDB:      mongodb://localhost:27017/wisemind    ║"
-echo "║  Ollama Model: $OLLAMA_MODEL"
-echo "╚══════════════════════════════════════════════════════╝"
-echo ""
+now() { date '+%Y-%m-%d %H:%M:%S'; }
 
-# ── Start MongoDB (if not already running) ──
-echo "🗄️  Checking MongoDB..."
-if pgrep -x mongod > /dev/null; then
-    echo "✅ MongoDB already running"
-else
-    echo "   Starting MongoDB..."
-    mkdir -p ~/mongodb_data ~/mongodb_log
-    ~/mongodb/bin/mongod --dbpath ~/mongodb_data --logpath ~/mongodb_log/mongod.log \
-        --fork --bind_ip 127.0.0.1 --port 27017
-    echo "✅ MongoDB started"
-fi
+# ── stop ──
+do_stop() {
+    echo "[$(now)] Stopping WiseMind services..."
 
-# ── Check Ollama ──
-echo "🔍 Checking Ollama..."
-if curl -s "$OLLAMA_BASE_URL/api/tags" > /dev/null 2>&1; then
-    echo "✅ Ollama is running"
-else
-    echo "❌ Ollama not running! Start with: ollama serve"
-    exit 1
-fi
-
-# ── Start Backend API (background) ──
-echo ""
-echo "🚀 Starting Backend API on port 5001..."
-cd "$BACKEND_DIR"
-python backend/api_server.py --port 5001 --preload &
-BACKEND_PID=$!
-echo "   Backend PID: $BACKEND_PID"
-
-# Wait for backend to start
-echo "   Waiting for backend to be ready..."
-for i in $(seq 1 60); do
-    if curl -s http://localhost:5001/v1/health > /dev/null 2>&1; then
-        echo "   ✅ Backend is ready!"
-        break
+    # Stop Docker backend
+    if docker ps -q -f name="$CONTAINER_NAME" 2>/dev/null | grep -q .; then
+        docker stop "$CONTAINER_NAME" && echo "  Stopped backend (Docker)"
+    else
+        echo "  Backend container not running"
     fi
-    sleep 2
-done
 
-# ── Start UI (foreground) ──
-echo ""
-echo "🎨 Starting UI on port 3000..."
-cd "$UI_DIR"
-npm run dev -- --port 3000 --host 0.0.0.0
+    # Stop frontend
+    pkill -f "npm run dev.*$FRONTEND_PORT" 2>/dev/null || true
+    pkill -f "vite dev.*$FRONTEND_PORT" 2>/dev/null && echo "  Stopped frontend" || echo "  Frontend not running"
+    echo "  Done. (MongoDB and Ollama left running)"
+}
 
-# Cleanup on exit
-trap "echo 'Shutting down...'; kill $BACKEND_PID 2>/dev/null; exit" INT TERM
-wait
+# ── status ──
+do_status() {
+    echo "╔══════════════════════════════════════════════════════╗"
+    echo "║             WiseMind — Service Status                ║"
+    echo "╚══════════════════════════════════════════════════════╝"
+
+    printf "  %-14s " "MongoDB:"
+    pgrep -x mongod > /dev/null && echo "RUNNING (pid $(pgrep -x mongod))" || echo "STOPPED"
+
+    printf "  %-14s " "Ollama:"
+    curl -s "$OLLAMA_BASE_URL/api/tags" > /dev/null 2>&1 && echo "RUNNING" || echo "STOPPED"
+
+    printf "  %-14s " "Backend:"
+    if docker ps -f name="$CONTAINER_NAME" --format '{{.Status}}' 2>/dev/null | grep -q Up; then
+        echo "RUNNING (Docker: $CONTAINER_NAME, port $BACKEND_PORT)"
+    else
+        echo "STOPPED"
+    fi
+
+    printf "  %-14s " "Frontend:"
+    if ss -tlnp 2>/dev/null | grep -q ":$FRONTEND_PORT "; then
+        echo "RUNNING (port $FRONTEND_PORT)"
+    else
+        echo "STOPPED"
+    fi
+
+    echo ""
+    echo "  Docker logs:  docker logs -f $CONTAINER_NAME"
+    echo "  Service logs: $LOG_DIR/"
+    ls -1t "$LOG_DIR"/*.log 2>/dev/null | head -5 | while read f; do
+        echo "    $(basename "$f")  ($(du -h "$f" | cut -f1))"
+    done
+}
+
+# ── logs ──
+do_logs() {
+    echo "=== Backend (Docker) ==="
+    docker logs --tail 20 "$CONTAINER_NAME" 2>&1
+    echo ""
+    echo "=== Frontend ==="
+    tail -20 "$LOG_DIR/frontend.log" 2>/dev/null
+    echo ""
+    echo "For live logs:  docker logs -f $CONTAINER_NAME"
+}
+
+# ── start ──
+do_start() {
+    echo "╔══════════════════════════════════════════════════════╗"
+    echo "║           WiseMind — Starting Services               ║"
+    echo "╠══════════════════════════════════════════════════════╣"
+    echo "║  Backend API:  Docker ($CONTAINER_NAME) :$BACKEND_PORT       ║"
+    echo "║  Frontend UI:  http://0.0.0.0:$FRONTEND_PORT                 ║"
+    echo "║  MongoDB:      mongodb://localhost:27017             ║"
+    echo "║  Ollama Model: $OLLAMA_MODEL"
+    echo "╚══════════════════════════════════════════════════════╝"
+    echo ""
+
+    source ~/miniconda3/etc/profile.d/conda.sh
+    conda activate wisefind
+
+    # ── [1/4] MongoDB ──
+    echo "[1/4] Checking MongoDB..."
+    if pgrep -x mongod > /dev/null; then
+        echo "  Already running"
+    else
+        echo "  Starting MongoDB..."
+        mkdir -p ~/mongodb_data ~/mongodb_log
+        ~/mongodb/bin/mongod --dbpath ~/mongodb_data --logpath ~/mongodb_log/mongod.log \
+            --fork --bind_ip 127.0.0.1 --port 27017
+        echo "  Started"
+    fi
+
+    # ── [2/4] Ollama ──
+    echo "[2/4] Checking Ollama..."
+    if curl -s "$OLLAMA_BASE_URL/api/tags" > /dev/null 2>&1; then
+        echo "  Already running"
+    else
+        echo "  WARNING: Ollama not running. Start with: ollama serve"
+    fi
+
+    # ── [3/4] Backend API (Docker) ──
+    echo "[3/4] Backend API (Docker container: $CONTAINER_NAME)..."
+    if docker ps -f name="$CONTAINER_NAME" --format '{{.Status}}' 2>/dev/null | grep -q Up; then
+        echo "  Already running"
+    else
+        # Remove old container if exists
+        docker rm -f "$CONTAINER_NAME" 2>/dev/null
+
+        echo "  Starting NGC PyTorch container with GPU..."
+        docker run -d --name "$CONTAINER_NAME" \
+            --gpus all --network host --ipc=host \
+            --ulimit memlock=-1 --ulimit stack=67108864 \
+            -v /home/wisemind/workspace/june/WiseMind:/workspace/WiseMind \
+            -v /home/wisemind/workspace/june/greenberg_images:/home/wisemind/workspace/june/greenberg_images \
+            -v /home/wisemind/.cache/huggingface:/root/.cache/huggingface \
+            -w /workspace/WiseMind \
+            "$NGC_IMAGE" \
+            bash run_backend_ngc.sh
+
+        echo "  Container started. Waiting for backend to load models (~2 min)..."
+        for i in $(seq 1 90); do
+            if curl -s "http://localhost:$BACKEND_PORT/v1/health" > /dev/null 2>&1; then
+                echo "  Backend is ready!"
+                break
+            fi
+            if ! docker ps -f name="$CONTAINER_NAME" --format '{{.Status}}' 2>/dev/null | grep -q Up; then
+                echo "  ERROR: Container died. Check: docker logs $CONTAINER_NAME"
+                return 1
+            fi
+            sleep 2
+        done
+
+        if ! curl -s "http://localhost:$BACKEND_PORT/v1/health" > /dev/null 2>&1; then
+            echo "  WARNING: Backend still loading. Monitor: docker logs -f $CONTAINER_NAME"
+        fi
+    fi
+
+    # ── [4/4] Frontend UI ──
+    echo "[4/4] Frontend UI (port $FRONTEND_PORT)..."
+    if ss -tlnp 2>/dev/null | grep -q ":$FRONTEND_PORT "; then
+        echo "  Already running — skipping"
+    else
+        echo "  Starting (log: $LOG_DIR/frontend.log)..."
+        cd "$UI_DIR"
+        nohup npm run dev -- --port "$FRONTEND_PORT" --host 0.0.0.0 \
+            >> "$LOG_DIR/frontend.log" 2>&1 &
+        FRONTEND_PID=$!
+        echo "  PID: $FRONTEND_PID"
+
+        sleep 3
+        if ss -tlnp 2>/dev/null | grep -q ":$FRONTEND_PORT "; then
+            echo "  Frontend is ready!"
+        else
+            echo "  WARNING: Frontend still starting. Check: tail $LOG_DIR/frontend.log"
+        fi
+    fi
+
+    echo ""
+    echo "════════════════════════════════════════════════════════"
+    echo "  All services launched."
+    echo "  Backend logs: docker logs -f $CONTAINER_NAME"
+    echo "  Frontend log: tail -f $LOG_DIR/frontend.log"
+    echo "  Status:       $SCRIPT_DIR/start_wisemind.sh status"
+    echo "  Stop:         $SCRIPT_DIR/start_wisemind.sh stop"
+    echo "════════════════════════════════════════════════════════"
+}
+
+# ── Main ──
+case "${1:-start}" in
+    stop)   do_stop   ;;
+    status) do_status ;;
+    logs)   do_logs   ;;
+    start)  do_start  ;;
+    *)      echo "Usage: $0 {start|stop|status|logs}"; exit 1 ;;
+esac
