@@ -144,6 +144,9 @@ do_start() {
         docker run -d --name "$CONTAINER_NAME" \
             --gpus all --network host --ipc=host \
             --ulimit memlock=-1 --ulimit stack=67108864 \
+            -e GREENBERG_IMAGES_DIR=/home/wisemind/workspace/june/greenberg_images \
+            -e OLLAMA_MODEL=alibayram/medgemma:27b \
+            -e PYTHONUNBUFFERED=1 \
             -v /home/wisemind/workspace/june/WiseMind:/workspace/WiseMind \
             -v /home/wisemind/workspace/june/greenberg_images:/home/wisemind/workspace/june/greenberg_images \
             -v /home/wisemind/.cache/huggingface:/root/.cache/huggingface \
