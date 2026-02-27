@@ -1,0 +1,28 @@
+2026-02-20 18:33:29,811 | wisemind_api | ✅ Loaded system prompt from /home/wisemind/workspace/june/WiseMind/backend/backend/system_prompt.txt (11532 chars)
+2026-02-20 18:33:29,812 | wisemind_api | Pre-loading models...
+2026-02-20 18:33:31,725 | faiss.loader | Loading faiss with SVE support.
+2026-02-20 18:33:31,734 | faiss.loader | Successfully loaded faiss with SVE support.
+2026-02-20 18:33:31,737 | wisemind_api | Loading NeurosurgeryRAG...
+2026-02-20 18:33:31,737 | neurosurgery.rag_system | Initializing Neurosurgery RAG with method: colbert
+2026-02-20 18:33:31,897 | neurosurgery.greenberg_rag | Loaded 21429 Greenberg chunks
+2026-02-20 18:33:32,128 | neurosurgery.greenberg_rag | Using ALL 21429 Greenberg chunks for comprehensive RAG
+2026-02-20 18:33:32,128 | neurosurgery.greenberg_rag | Loading cached BM25 index from greenberg_bm25_hierarchical_e7daea7f5a7d.pkl...
+2026-02-20 18:33:32,218 | neurosurgery.greenberg_rag | ✅ Loaded cached BM25 index (21429 documents)
+2026-02-20 18:33:32,218 | neurosurgery.greenberg_rag | Loading cached Dense index...
+2026-02-20 18:33:32,233 | neurosurgery.greenberg_rag | ✅ Loaded cached Dense index (21429 vectors, dim=384)
+2026-02-20 18:33:32,233 | neurosurgery.greenberg_rag | Loading cached token-level embeddings...
+2026-02-20 18:33:43,331 | neurosurgery.greenberg_rag | ✅ Loaded token embeddings for 21429 chunks
+2026-02-20 18:33:43,332 | neurosurgery.rag_system | ✅ Neurosurgery RAG initialized with 21429 chunks
+2026-02-20 18:33:43,332 | wisemind_api | ✅ RAG loaded successfully
+2026-02-20 18:33:43,336 | wisemind_api | Ollama models available: ['kimi-k2.5:cloud', 'alibayram/medgemma:27b', 'gpt-oss:20b']
+2026-02-20 18:33:43,336 | wisemind_api | ✅ Ollama model 'alibayram/medgemma:27b' is available
+2026-02-20 18:33:43,336 | wisemind_api | Loading raw Greenberg chunks for fallback...
+2026-02-20 18:33:43,543 | wisemind_api | ✅ Loaded 21429 raw chunks
+2026-02-20 18:33:43,543 | wisemind_api | ✅ All models pre-loaded
+2026-02-20 18:33:43,543 | wisemind_api | Starting WiseMind API on 0.0.0.0:5000
+2026-02-20 18:33:43,543 | wisemind_api |   OpenAI-compatible endpoint: http://0.0.0.0:5000/v1
+2026-02-20 18:33:43,543 | wisemind_api |   Image endpoint: http://0.0.0.0:5000/v1/images/<filename>
+ * Serving Flask app 'api_server'
+ * Debug mode: off
+Address already in use
+Port 5000 is in use by another program. Either identify and stop that program, or start the server with a different port.

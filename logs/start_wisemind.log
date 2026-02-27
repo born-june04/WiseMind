@@ -1,0 +1,926 @@
+╔══════════════════════════════════════════════════════╗
+║           WiseMind — Starting Services               ║
+╠══════════════════════════════════════════════════════╣
+║  Backend API:  http://0.0.0.0:5001                 ║
+║  Frontend UI:  http://0.0.0.0:3000                 ║
+║  MongoDB:      mongodb://localhost:27017/wisemind    ║
+║  Ollama Model: alibayram/medgemma:27b
+╚══════════════════════════════════════════════════════╝
+
+[1/4] Checking MongoDB...
+  MongoDB already running
+[2/4] Checking Ollama...
+  Ollama is running
+[3/4] Backend API (port 5001)...
+  Backend already running and healthy — skipping
+[4/4] Frontend UI (port 3000)...
+
+> chat-ui@0.20.0 dev
+> vite dev --port 3000 --host 0.0.0.0
+
+
+  VITE v6.3.5  ready in 619 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://10.146.157.51:3000/
+  ➜  Network: http://10.72.127.149:3000/
+[15:49:43.996] [32mINFO[39m (1370553):
+    message: "Connecting to database"
+[15:49:44.002] [32mINFO[39m (1370553):
+    message: "Connected to database"
+[MCP] Loaded 0 server(s): none
+[15:49:44.265] [32mINFO[39m (1370553):
+    message: "Starting server..."
+[15:49:44.266] [32mINFO[39m (1370553):
+    message: "[ADMIN] You can login with http://localhost:3000?token=51de4e6c-e61b-4c87-aa40-9d519da843ac"
+[15:49:44.451] [32mINFO[39m (1370553):
+    request_id: "33305e5f-4a92-4a4f-80bf-6ef59f6f2fc9"
+    url: "/"
+    ip: "127.0.0.1"
+    baseURL: "http://localhost:5001/v1"
+    message: "[models] Using OpenAI-compatible base URL"
+[15:49:44.459] [32mINFO[39m (1370553):
+    request_id: "33305e5f-4a92-4a4f-80bf-6ef59f6f2fc9"
+    url: "/"
+    ip: "127.0.0.1"
+    status: 200
+    message: "[models] First fetch status"
+[15:49:44.461] [32mINFO[39m (1370553):
+    request_id: "33305e5f-4a92-4a4f-80bf-6ef59f6f2fc9"
+    url: "/"
+    ip: "127.0.0.1"
+    keys: [
+      "data",
+      "object"
+    ]
+    message: "[models] Response keys"
+[15:49:44.461] [32mINFO[39m (1370553):
+    request_id: "33305e5f-4a92-4a4f-80bf-6ef59f6f2fc9"
+    url: "/"
+    ip: "127.0.0.1"
+    count: 3
+    message: "[models] Parsed models count"
+[15:49:44.461] [32mINFO[39m (1370553):
+    request_id: "33305e5f-4a92-4a4f-80bf-6ef59f6f2fc9"
+    url: "/"
+    ip: "127.0.0.1"
+    total: 3
+    added: [
+      "kimi-k2.5:cloud",
+      "alibayram/medgemma:27b",
+      "gpt-oss:20b"
+    ]
+    removed: []
+    changed: []
+    durationMs: 10
+    message: "[models] Model cache refreshed"
+[15:49:44.521] [32mINFO[39m (1370553):
+    request_id: "c9e5f6b0-4165-41ad-afee-5faed052b437"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:44.522] [32mINFO[39m (1370553):
+    request_id: "1bc3bd82-b5af-4820-8d48-6f2c1027de3a"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:44.522] [32mINFO[39m (1370553):
+    request_id: "c167d9b6-5eeb-4c61-9209-7dcacca5c86f"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:44.523] [32mINFO[39m (1370553):
+    request_id: "8acd9576-96b1-4ba3-99a8-05d665db92ed"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:44.527] [32mINFO[39m (1370553):
+    request_id: "5342027e-05cc-4d26-b6c1-400bcfcbd7a8"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:44.528] [32mINFO[39m (1370553):
+    request_id: "f5284041-89d0-45b7-9112-4260cc93a97e"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+3:49:48 PM [vite-plugin-svelte] src/lib/components/chat/ChatMessage.svelte:272:3 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+[15:49:50.017] [32mINFO[39m (1370553):
+    request_id: "33305e5f-4a92-4a4f-80bf-6ef59f6f2fc9"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.089] [32mINFO[39m (1370553):
+    request_id: "e53a6673-370f-4e9c-b728-6b8beee90b3a"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.090] [32mINFO[39m (1370553):
+    request_id: "9130f2b4-f1db-40ff-abf6-c356b3839c54"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.091] [32mINFO[39m (1370553):
+    request_id: "ca9e12c8-f932-4296-885d-3f981a895824"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.091] [32mINFO[39m (1370553):
+    request_id: "1c2560a9-16ab-4fa9-8723-e339f8123693"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.092] [32mINFO[39m (1370553):
+    request_id: "bc44575e-c59a-4952-97e2-7b5d2d21dab4"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.092] [32mINFO[39m (1370553):
+    request_id: "bb8d49a2-d354-42e2-8ed4-d9df7d82fb61"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.195] [32mINFO[39m (1370553):
+    request_id: "3921e123-01f4-44ce-a418-c78f540280b7"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.263] [32mINFO[39m (1370553):
+    request_id: "05d93ab0-7c29-45a4-a4f2-682046c7a02e"
+    url: "/api/v2/user"
+    ip: "10.72.127.149"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.264] [32mINFO[39m (1370553):
+    request_id: "eb288270-a00b-404c-9699-f4e67742bd2f"
+    url: "/api/v2/public-config"
+    ip: "10.72.127.149"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.264] [32mINFO[39m (1370553):
+    request_id: "80f933aa-b08c-40ec-8f3f-bab187b5cb3e"
+    url: "/api/v2/feature-flags"
+    ip: "10.72.127.149"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.265] [32mINFO[39m (1370553):
+    request_id: "cf0d68e3-8656-40de-8f1f-b0220b973fcb"
+    url: "/api/v2/models"
+    ip: "10.72.127.149"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.265] [32mINFO[39m (1370553):
+    request_id: "56395a69-185f-4947-a029-1e8673e433a2"
+    url: "/api/v2/conversations"
+    ip: "10.72.127.149"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.266] [32mINFO[39m (1370553):
+    request_id: "beb930a3-17df-4651-9228-5359319841e4"
+    url: "/api/v2/user/settings"
+    ip: "10.72.127.149"
+    status_code: 200
+    message: "Request completed"
+[15:49:50.364] [32mINFO[39m (1370553):
+    request_id: "9f3e17e3-df39-4b53-b0ba-9bda7d197300"
+    url: "/"
+    ip: "10.72.127.149"
+    status_code: 200
+    message: "Request completed"
+4:43:59 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+4:43:59 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+4:43:59 PM [vite] (ssr) page reload .svelte-kit/generated/root.svelte
+[MCP] Loaded 0 server(s): none
+[17:15:44.455] [32mINFO[39m (1370553):
+    message: "Starting server..."
+[17:15:44.455] [32mINFO[39m (1370553):
+    message: "[ADMIN] You can login with http://localhost:3000?token=51de4e6c-e61b-4c87-aa40-9d519da843ac"
+[17:15:44.466] [32mINFO[39m (1370553):
+    request_id: "1614086d-2dc7-4c4b-9fe7-724817acb4d1"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.467] [32mINFO[39m (1370553):
+    request_id: "61493557-312e-4e41-af66-5d00502a89f9"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.467] [32mINFO[39m (1370553):
+    request_id: "9a5cc2e1-a466-42d2-93c2-7d63c006357d"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.468] [32mINFO[39m (1370553):
+    request_id: "0e511dd1-a018-4fd8-b3d9-d773e38361e4"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.470] [32mINFO[39m (1370553):
+    request_id: "7755e54b-7b2d-4c77-b2a6-6cdc95904d4f"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.471] [32mINFO[39m (1370553):
+    request_id: "6f2e0e85-01d9-413b-9c89-308bdef235d7"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.648] [32mINFO[39m (1370553):
+    request_id: "f317bfb5-cf5e-4fde-9f5b-74db2d489e03"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.714] [32mINFO[39m (1370553):
+    request_id: "014a9af0-eec4-4aa6-b5b8-0d5b66d2990b"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.715] [32mINFO[39m (1370553):
+    request_id: "fceb87f6-32d3-46fc-942b-78f665f14843"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.715] [32mINFO[39m (1370553):
+    request_id: "ff6230d2-44d9-40b2-92a7-a33b13b283c2"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.716] [32mINFO[39m (1370553):
+    request_id: "b8fcc10f-04b0-4e3c-9c54-777f5c99b407"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.716] [32mINFO[39m (1370553):
+    request_id: "2ede8a33-074e-4e9e-886b-9db4fd1b2a94"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.716] [32mINFO[39m (1370553):
+    request_id: "de09f8a3-b79a-4bba-8e6c-f8f623aa8288"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:15:44.820] [32mINFO[39m (1370553):
+    request_id: "81dc1a9c-5472-4008-a2da-d34c11e2d622"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+5:16:08 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+5:16:08 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+[MCP] Loaded 0 server(s): none
+[17:16:22.449] [32mINFO[39m (1370553):
+    message: "Starting server..."
+[17:16:22.449] [32mINFO[39m (1370553):
+    message: "[ADMIN] You can login with http://localhost:3000?token=51de4e6c-e61b-4c87-aa40-9d519da843ac"
+[17:16:22.472] [32mINFO[39m (1370553):
+    request_id: "2f339c1a-42cb-4d2a-9312-e182a1ece9fa"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.476] [32mINFO[39m (1370553):
+    request_id: "061505ba-4aa1-46f1-97c5-2f8ae27ca851"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.477] [32mINFO[39m (1370553):
+    request_id: "e844db9e-a7c4-472a-b360-0d3e6aa47177"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.478] [32mINFO[39m (1370553):
+    request_id: "a81e5aec-bc03-459c-a52f-711144506674"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.480] [32mINFO[39m (1370553):
+    request_id: "f908bdbd-231e-4d83-860a-f40b881664d6"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.482] [32mINFO[39m (1370553):
+    request_id: "e935ab78-faf0-4b44-b052-3e5c4bb68349"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.620] [32mINFO[39m (1370553):
+    request_id: "16b888fb-d777-4c07-ad07-a233785025fd"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.690] [32mINFO[39m (1370553):
+    request_id: "92480cf1-7062-4abe-b164-bd1fab2648ef"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.691] [32mINFO[39m (1370553):
+    request_id: "ab3baf28-2d23-4c5a-b0b7-87f60cb0f311"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.691] [32mINFO[39m (1370553):
+    request_id: "e8be2b9e-4337-4696-af59-07882ad387d0"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.691] [32mINFO[39m (1370553):
+    request_id: "c0358ec4-2550-4cfb-a34e-4fc8769713e4"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.692] [32mINFO[39m (1370553):
+    request_id: "c81281b2-7ab6-4d0b-b0c4-eb81609a4db2"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.692] [32mINFO[39m (1370553):
+    request_id: "5973d6ee-01d7-412e-8d0f-a0dcdf39390b"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:22.799] [32mINFO[39m (1370553):
+    request_id: "12ac29c5-6256-4fda-adef-c91eb354b595"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:23.038] [32mINFO[39m (1370553):
+    request_id: "deece29f-2579-4177-8f3f-77271971bb76"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:23.038] [32mINFO[39m (1370553):
+    request_id: "cafddceb-4e27-4957-b96e-7b7b6bf49541"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:23.039] [32mINFO[39m (1370553):
+    request_id: "eafdd996-1d62-4285-8342-4d602a42ef2b"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:23.039] [32mINFO[39m (1370553):
+    request_id: "d90ab2a6-b6a5-420f-9d3d-c41e185f28bb"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:23.040] [32mINFO[39m (1370553):
+    request_id: "6c28e599-f2b3-473c-af6d-e2e3c4836c8c"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:23.042] [32mINFO[39m (1370553):
+    request_id: "d8a60278-7f4d-4686-b82a-2744a40017fc"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:23.143] [32mINFO[39m (1370553):
+    request_id: "3a810bd4-8cc4-455f-9eac-33ca2053d297"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.159] [32mINFO[39m (1370553):
+    request_id: "633664be-900d-46ee-b4f3-f0ce78c74cd8"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.160] [32mINFO[39m (1370553):
+    request_id: "f3d3572b-2ca7-4ee7-9d3b-53d7a2a890e0"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.161] [32mINFO[39m (1370553):
+    request_id: "ad9b050a-130a-40ef-abc6-2429e4793262"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.162] [32mINFO[39m (1370553):
+    request_id: "77b27392-b9c3-40a4-9d97-d0b51b834f70"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.162] [32mINFO[39m (1370553):
+    request_id: "7b7b2c28-6faa-412b-bafe-607645c69a3f"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.162] [32mINFO[39m (1370553):
+    request_id: "72373d5f-0a86-496c-9c33-fe5e21aa4e88"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.322] [32mINFO[39m (1370553):
+    request_id: "fdf9b9c4-7141-4908-9db7-ba74b728a562"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.569] [32mINFO[39m (1370553):
+    request_id: "5a86c4f1-f73a-4b14-a7a4-7daa3fcf085c"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.569] [32mINFO[39m (1370553):
+    request_id: "085bc205-c201-4cb8-8a71-0e9dd9e27458"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.570] [32mINFO[39m (1370553):
+    request_id: "84bf94d2-8df2-4430-8d12-30f156a17737"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.570] [32mINFO[39m (1370553):
+    request_id: "44eed136-8877-436d-b32d-dbd3399c23d1"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.571] [32mINFO[39m (1370553):
+    request_id: "2f39d8da-41aa-4389-8ff5-6a74242d3379"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.571] [32mINFO[39m (1370553):
+    request_id: "b2054dc0-ccce-40bd-b268-f03a6fa4d4ac"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.672] [32mINFO[39m (1370553):
+    request_id: "ec3bc5ef-8a9a-4443-908e-e4fdc1a01b5d"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.736] [32mINFO[39m (1370553):
+    request_id: "a4b68223-22b2-4903-908f-756781c0e207"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.737] [32mINFO[39m (1370553):
+    request_id: "c93656e0-11d7-4c18-8903-c897c19e5647"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.737] [32mINFO[39m (1370553):
+    request_id: "4e43f10b-1b79-452c-9ba9-44b411904b96"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.738] [32mINFO[39m (1370553):
+    request_id: "4604253a-f214-45cd-9dff-6fa60c2f6a81"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.738] [32mINFO[39m (1370553):
+    request_id: "c9810c77-7827-4f4a-84bd-c90aa8733401"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.739] [32mINFO[39m (1370553):
+    request_id: "ed13423f-84b5-4809-a7fe-a510f70ade20"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:44.840] [32mINFO[39m (1370553):
+    request_id: "118b4997-7ce9-4e6c-8ee3-731a75574ec3"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.362] [32mINFO[39m (1370553):
+    request_id: "7d745b4b-25b4-403b-91a0-cb8be8920f38"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.362] [32mINFO[39m (1370553):
+    request_id: "4c468133-a6de-4838-a156-9def53327ec5"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.362] [32mINFO[39m (1370553):
+    request_id: "f8ad28e0-b4f4-4635-bcc1-ec1d4b653658"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.363] [32mINFO[39m (1370553):
+    request_id: "f7bf38a8-d56a-4909-9d73-879c4138c52c"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.363] [32mINFO[39m (1370553):
+    request_id: "f5e56fd0-da4a-4740-833c-022a8a6656d9"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.363] [32mINFO[39m (1370553):
+    request_id: "626cdc81-6114-4a78-9580-07c7d1a122fd"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.467] [32mINFO[39m (1370553):
+    request_id: "c4da4cd3-b223-4c82-b9ec-633bc98bb461"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.530] [32mINFO[39m (1370553):
+    request_id: "9022e447-4b93-417b-a776-1ee343950bcd"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.530] [32mINFO[39m (1370553):
+    request_id: "e2870641-bfdb-49d4-acec-2bf11cd24309"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.531] [32mINFO[39m (1370553):
+    request_id: "fcf460e8-1868-4c93-ab67-420a73fad60d"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.531] [32mINFO[39m (1370553):
+    request_id: "64edbb39-1419-48e0-be26-ff975a71d195"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.531] [32mINFO[39m (1370553):
+    request_id: "276d7cde-863f-48bc-9df1-0820872f43f3"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.532] [32mINFO[39m (1370553):
+    request_id: "e20db83e-cf87-47d1-845d-e7ae10e45239"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:16:45.649] [32mINFO[39m (1370553):
+    request_id: "9bf41f10-3879-452b-9af3-66eddbd65408"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+5:25:05 PM [vite-plugin-svelte] src/lib/components/chat/ChatMessage.svelte:272:3 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+[17:25:04.589] [32mINFO[39m (1370553):
+    request_id: "687d5796-4f42-472a-a926-5061adf83f4b"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:04.590] [32mINFO[39m (1370553):
+    request_id: "1b1ebe64-2999-42d2-9b52-052cd8583aac"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:04.591] [32mINFO[39m (1370553):
+    request_id: "ff89eee4-286e-4917-b7ad-2a56de2aaa49"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:04.592] [32mINFO[39m (1370553):
+    request_id: "d0963e70-6075-4805-8012-42963ec2c72b"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:04.592] [32mINFO[39m (1370553):
+    request_id: "4ada7ebf-c6d7-4e92-ae4a-c77b538b40d0"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:04.593] [32mINFO[39m (1370553):
+    request_id: "3ef17a45-80cb-41c5-a16b-d04631f352d2"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:04.722] [32mINFO[39m (1370553):
+    request_id: "16c3efe1-e1e5-4c84-99b9-82560ec181fb"
+    url: "/"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:05.952] [32mINFO[39m (1370553):
+    request_id: "e0e833e3-fea6-4bf1-8bc6-e1543c89ff1c"
+    url: "/api/mcp/servers"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:06.435] [32mINFO[39m (1370553):
+    request_id: "74d8743b-cfd7-43c5-805b-1d6b1267cbc1"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:08.196] [32mINFO[39m (1370553):
+    request_id: "841a5631-e1b6-4259-bb12-be8e81569120"
+    url: "/conversation"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:08.225] [32mINFO[39m (1370553):
+    request_id: "f21d7257-e5d4-4f6e-9f3e-a6b1f63cdb61"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:08.276] [32mINFO[39m (1370553):
+    request_id: "fb0a3d94-a7fb-403c-89d5-a34c130c4167"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:08.277] [32mINFO[39m (1370553):
+    request_id: "90a07b64-60de-4518-9671-59be1bb024b3"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:08.277] [32mINFO[39m (1370553):
+    request_id: "68d96d05-2ad0-42dd-9ada-54f0fa716b54"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:08.278] [32mINFO[39m (1370553):
+    request_id: "669566f0-e834-4a17-81f8-9417446570eb"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:08.297] [32mINFO[39m (1370553):
+    request_id: "3ec2cc70-9ba6-4c41-a83a-653b0efa61f2"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:08.414] [32mINFO[39m (1370553):
+    request_id: "26601516-edb8-4539-a3be-145c861e85fa"
+    url: "/api/v2/conversations/699cfdf4aa848cba7bbb8fdc"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:08.599] [32mINFO[39m (1370553):
+    request_id: "40fe8450-a0cb-4f2c-a589-ebc201028f81"
+    url: "/conversation/699cfdf4aa848cba7bbb8fdc"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:25:08.664] [33mWARN[39m (1370553):
+    request_id: "40fe8450-a0cb-4f2c-a589-ebc201028f81"
+    url: "/conversation/699cfdf4aa848cba7bbb8fdc"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "[RAG] Verification data not found at /mmfs1/gscratch/scrubbed/maryxn/wisefind/verification_data/verification_data/verification_data.json"
+[17:25:08.665] [32mINFO[39m (1370553):
+    request_id: "40fe8450-a0cb-4f2c-a589-ebc201028f81"
+    url: "/conversation/699cfdf4aa848cba7bbb8fdc"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "[RAG] No matching verification data for query: \"Hello\""
+[17:25:08.665] [32mINFO[39m (1370553):
+    request_id: "40fe8450-a0cb-4f2c-a589-ebc201028f81"
+    url: "/conversation/699cfdf4aa848cba7bbb8fdc"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "[RAG] No context found for query: \"Hello\""
+[17:25:08.665] [33mWARN[39m (1370553):
+    request_id: "40fe8450-a0cb-4f2c-a589-ebc201028f81"
+    url: "/conversation/699cfdf4aa848cba7bbb8fdc"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "[mcp] no MCP servers selected after merge/name filter"
+5:33:52 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+5:33:52 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+5:33:52 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+5:33:52 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/5.js
+5:33:52 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+5:33:52 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+5:33:52 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+5:33:52 PM [vite] (client) page reload .svelte-kit/generated/root.js
+5:33:52 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+[MCP] Loaded 0 server(s): none
+[17:33:53.120] [32mINFO[39m (1370553):
+    message: "Starting server..."
+[17:33:53.121] [32mINFO[39m (1370553):
+    message: "[ADMIN] You can login with http://localhost:3000?token=51de4e6c-e61b-4c87-aa40-9d519da843ac"
+[17:33:53.142] [32mINFO[39m (1370553):
+    request_id: "71b4830b-68b3-45dd-864f-ec2eefab1a62"
+    url: "/api/v2/conversations/699cfdf4aa848cba7bbb8fdc"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.148] [32mINFO[39m (1370553):
+    request_id: "71380222-6018-4a24-b557-353e78f983e6"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.149] [32mINFO[39m (1370553):
+    request_id: "cae573bb-90d1-4575-bd61-1ab4cd2960a7"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.149] [32mINFO[39m (1370553):
+    request_id: "0fb6427d-96e6-4667-96d3-fe1b93016bd4"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.150] [32mINFO[39m (1370553):
+    request_id: "5f6773b8-0825-4fb0-9c4a-1169834aaca6"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.155] [32mINFO[39m (1370553):
+    request_id: "a77658c1-1903-4699-bb3f-3a884df7e5ed"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.166] [32mINFO[39m (1370553):
+    request_id: "94591fb2-8fb8-4845-a8e4-27dd9d47675b"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.167] [32mINFO[39m (1370553):
+    request_id: "6c98237d-44df-4ef3-807d-21197bdc2eda"
+    url: "/api/v2/conversations/699cfdf4aa848cba7bbb8fdc"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.170] [32mINFO[39m (1370553):
+    request_id: "43ee5753-26d6-42c0-b5a7-42a9a15fd068"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.171] [32mINFO[39m (1370553):
+    request_id: "39f8d63c-956a-4047-bb74-033f22e8f5f3"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.173] [32mINFO[39m (1370553):
+    request_id: "9556f4d0-f417-40a7-8fe7-784ed36cee7a"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.174] [32mINFO[39m (1370553):
+    request_id: "3932bf0d-062f-4592-a7ff-26316549d60f"
+    url: "/api/v2/feature-flags"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.174] [32mINFO[39m (1370553):
+    request_id: "b872ce5d-c75f-4177-8601-7ef487aa2a68"
+    url: "/api/v2/public-config"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.273] [32mINFO[39m (1370553):
+    request_id: "4abd48da-998f-4ec7-9417-7d1621037aa2"
+    url: "/api/v2/models"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.273] [32mINFO[39m (1370553):
+    request_id: "1aefea60-fbb0-4920-ae27-53b500435636"
+    url: "/api/v2/user"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.281] [32mINFO[39m (1370553):
+    request_id: "d271393e-0ab4-4a58-bddf-f550dcfe7095"
+    url: "/api/v2/conversations"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.281] [32mINFO[39m (1370553):
+    request_id: "1f56c36a-bda1-4ed7-8104-7153dc22cd4e"
+    url: "/api/v2/conversations/699cfdf4aa848cba7bbb8fdc"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.281] [32mINFO[39m (1370553):
+    request_id: "67c3b75d-4369-4859-9a13-d2a0be91fe22"
+    url: "/api/v2/user/settings"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+[17:33:53.469] [32mINFO[39m (1370553):
+    request_id: "e5044280-866f-45ee-8b7d-c5c315d60d68"
+    url: "/conversation/699cfdf4aa848cba7bbb8fdc"
+    ip: "127.0.0.1"
+    status_code: 200
+    message: "Request completed"
+5:34:32 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+5:34:32 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+5:34:32 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+5:34:32 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/5.js
+5:34:32 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+5:34:32 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+5:34:32 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+5:34:32 PM [vite] (client) page reload .svelte-kit/generated/root.js
+5:34:32 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+[17:35:31.608] [32mINFO[39m (1370553):
+    message: "Received signal... Exiting"
+[17:35:31.608] [32mINFO[39m (1370553):
+    message: "Received signal... Exiting"
+[17:35:31.608] [32mINFO[39m (1370553):
+    message: "Received signal... Exiting"
+[17:35:31.608] [32mINFO[39m (1370553):
+    message: "Received signal... Exiting"
+[17:35:31.610] [32mINFO[39m (1370553):
+    message: "Closing database connection"
+[17:35:31.610] [32mINFO[39m (1370553):
+    message: "Closing database connection"
+[17:35:31.610] [32mINFO[39m (1370553):
+    message: "Closing database connection"
+[17:35:31.610] [32mINFO[39m (1370553):
+    message: "Closing database connection"

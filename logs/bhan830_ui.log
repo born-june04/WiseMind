@@ -1,0 +1,11 @@
+
+> chat-ui@0.20.0 dev
+> vite dev --port 3000 --host 0.0.0.0
+
+
+  VITE v6.3.5  ready in 666 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://10.146.157.51:3000/
+  ➜  Network: http://10.72.127.149:3000/
+Killed
