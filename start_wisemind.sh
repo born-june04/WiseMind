@@ -170,6 +170,7 @@ do_start() {
         docker rm -f "$CONTAINER_NAME" 2>/dev/null
 
         echo "  Starting NGC PyTorch container with GPU..."
+        SHARED_DATA="/home/wisemind/workspace/june/WiseMind/backend/workspace/_shared"
         docker run -d --name "$CONTAINER_NAME" \
             --gpus all --network host --ipc=host \
             --ulimit memlock=-1 --ulimit stack=67108864 \
@@ -179,6 +180,7 @@ do_start() {
             -e WISEMIND_ENV=$( $DEV_MODE && echo dev || echo prod ) \
             -v "$WORKSPACE_DIR":/workspace/WiseMind-dev \
             -v /home/wisemind/workspace/june/WiseMind:/workspace/WiseMind \
+            $( $DEV_MODE && echo "-v ${SHARED_DATA}:/workspace/WiseMind-dev/backend/workspace/_shared" ) \
             -v /home/wisemind/workspace/june/greenberg_images:/home/wisemind/workspace/june/greenberg_images \
             -v /home/wisemind/.cache/huggingface:/root/.cache/huggingface \
             -w "$WORKSPACE_DIR" \
