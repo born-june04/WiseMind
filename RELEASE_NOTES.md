@@ -2,6 +2,77 @@
 
 ---
 
+## v1.3.2 — 2026-03-07
+
+### Summary
+RAG accuracy improvements: query expansion using medical ontology, middle layer guideline source attribution with PDF URLs, and ontology category normalization for richer definition injection.
+
+---
+
+### New Features
+
+#### RAG Query Expansion
+Medical abbreviations in the user query are automatically expanded before vector search using the ontology alias map:
+
+- e.g. `"ICP management in TBI?"` → search query includes `"intracranial pressure traumatic brain injury"`
+- Improves recall for abbreviation-heavy clinical queries
+- Capped at 4 expansions to prevent query dilution
+- **Definition injection** also scans the full conversation context (expanded query with prior turns), not just the current message — picks up terms referenced in earlier turns
+
+#### Middle Layer Source Attribution
+Each clinical guideline chunk now carries full source metadata:
+- `source_id` (= `doc_id`) for unambiguous provenance
+- `source_url` — direct link to the source PDF, loaded from `sources.json`
+- Guideline citations in the response footer now render as clickable links:
+  `[BTF Guidelines: Management of Severe TBI (4th Edition)](https://...)`
+
+#### Ontology v2 — Category Normalization
+`medical_terms.json` category distribution improved with keyword-rule reclassification:
+
+| Category | Before | After |
+|---|---|---|
+| entity | 733 | 28 |
+| term | 187 | 64 |
+| condition | 315 | **584** |
+| anatomy | 214 | **490** |
+| procedure | 69 | **262** |
+| imaging | 101 | **127** |
+| scoring | 49 | **101** |
+
+More specific categories improve definition injection priority and LLM context quality. The 92 remaining `entity`/`term` entries are genuinely ambiguous (journal names, composite concepts).
+
+---
+
+### Technical Details
+
+| Component | Change |
+|---|---|
+| `api_server.py` | Added `_expand_query()` — ontology alias expansion before RAG search |
+| `api_server.py` | `build_definitions_context` now uses expanded `rag_query` (full context) |
+| `api_server.py` | `_build_source_metadata` renders guideline URLs as markdown links |
+| `middle_layer_search.py` | Loads `sources.json` into `_sources_map`; enriches results with `source_id`, `source_url` |
+| `definitions/medical_terms.json` | 827 terms reclassified from vague to specific categories |
+
+---
+
+
+## v1.3.1 — 2026-03-07
+
+### Summary
+Refactored "active conflict detection" to "source-faithful presentation": the system no longer explicitly labels conflicts, but naturally presents each source's perspective when multiple sources address the same clinical point.
+
+---
+
+### Changes
+
+#### Source-Faithful Presentation (replaces Conflict Detection)
+The v1.3.0 "Evidence Conflict" feature actively searched for disagreements and labeled them with `⚠️ Evidence Conflict`. Based on feedback, the goal is *transparency*, not judgment — when Greenberg and BTF Guidelines differ, the response naturally states both views side by side without a forced conflict label.
+
+- **STEP1 / STEP2 / STEP3 prompts** (`api_server.py`): Removed `⚠️ CONFLICT RULE (CRITICAL)`; replaced with `SOURCE-FAITHFUL PRESENTATION` instruction. STEP2 review criterion updated from "Evidence conflicts" to "Source faithfulness."
+- **Flash mode** (`system_prompt.txt`): Same replacement applied.
+
+---
+
 ## v1.3.0 — 2026-03-07
 
 ### Summary
