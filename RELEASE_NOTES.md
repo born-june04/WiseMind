@@ -2,6 +2,46 @@
 
 ---
 
+## v1.4.0 — 2026-03-07
+
+### Summary
+Inline reference grounding: every citation in the AI response is now a clickable button that opens a side panel showing the exact source passage with keyword highlighting. Covers both Greenberg textbook (📖) and clinical guidelines (📋).
+
+---
+
+### New Features
+
+#### Inline Citation Buttons
+LLM responses now use sequential `[N]` citation markers instead of inline links:
+
+- e.g. *"ICP > 22 mmHg triggers treatment [1]"* → clicking `[1]` opens the source
+- Greenberg chunks show 📖 icon + page number
+- Clinical guideline chunks show 📋 icon + document name
+- Buttons appear as small blue pill-shaped badges inline with the text
+
+#### Source Panel (Side Panel)
+A new slide-in panel appears from the right when a citation is clicked:
+
+- Shows source type, section title, and page number (for Greenberg)
+- Displays the exact 800-character passage from the indexed chunk
+- **Keyword auto-highlighting**: section and document title words are highlighted in yellow
+- External URL link ("Open source document") for guideline PDFs
+- Close via X button or backdrop click
+- Panel does not interfere with the chat scroll state
+
+#### Backend Changes
+- `_format_rag_context`: unified sequential `[N]` numbering across Greenberg + guideline chunks
+- `_build_source_metadata`: embeds full `content` (800 chars), `chunk_id`, and `ref_index` per source; structured data injected as `<!--wisemind-sources:BASE64-->` HTML comment for frontend parsing
+- LLM system prompts (`STEP1_SYSTEM_PROMPT`, `STEP2_SYSTEM_PROMPT`, `system_prompt.txt`) updated to use `[N]` citation format
+
+#### Frontend Changes (`ui/`)
+- `marked.ts`: `WiseMindSource` type added; `processBlocks` / `processBlocksSync` accept `wisemindSources` for per-response rendering (cache-bypassed)
+- `MarkdownRenderer.svelte`: new `wisemindSources` prop forwarded to marked
+- `ChatMessage.svelte`: parses `<!--wisemind-sources:BASE64-->` from message content; routes cite-button clicks to `SourcePanel`
+- `SourcePanel.svelte`: new component — slide-in panel with keyword highlight, close button, and optional source URL
+
+---
+
 ## v1.3.2 — 2026-03-07
 
 ### Summary
