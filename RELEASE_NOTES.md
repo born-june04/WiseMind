@@ -2,6 +2,57 @@
 
 ---
 
+## v1.4.2 — 2026-03-14
+
+### Summary
+Full RAG pipeline fix: all 7 debug-report fixes applied and verified. 11/11 test cases pass (up from 0%).
+
+---
+
+### New / Changed
+
+#### Fix 6 — Expert GCS / Mild TBI Definition Override
+- `definitions/manual_overrides.json` now loaded with **highest priority** (overrides XLSX and JSON).
+- `definition_loader.py`: three-tier load order — `medical_terms.json` → `medical_terms.xlsx` → `manual_overrides.json` (gold standard).
+- **Mild TBI** definition added as expert-reviewed override: GCS **14–15** per current clinical consensus (Greenberg p.988 defines 13–15, but expert consensus reclassifies GCS 13 as moderate).
+- **TBI** definition updated: mild 14–15, moderate 9–13, severe ≤8.
+- `system_prompt.txt`: definitions block explicitly overrides conflicting Greenberg values when marked expert-reviewed.
+
+#### Fix 7 — Section-Aware Query Expansion
+- `api_server.py`: `_CONTEXT_EXPANSIONS` dict + `_expand_query_with_context()` function.
+- Clinical keyword fragments (e.g. `"intubat"`, `"marshall"`, `"subdural"`) expand the RAG query with chapter-specific terms, biasing ColBERT toward the correct section.
+- Prevents cross-chapter false matches (e.g. "intubation" matching aneurysm postop instead of head trauma).
+
+#### Fix 6b — Additional Definition Coverage (resolves B1–B3)
+- **Marshall CT Classification** added to `manual_overrides.json` — all 6 categories (Diffuse I–IV, Evacuated, Non-evacuated).
+- **SDH** surgical indications expanded: thickness >10 mm OR shift >5 mm; added `"subdural"` alias for single-word matching.
+- **ICP** definition enriched: intracranial hypertension defined as ICP >22 mmHg (BTF 4th Ed., unit = mmHg not cm H₂O); all 5 clinical signs listed including papilledema.
+
+#### Debug page (Settings)
+- New **Debug** entry in Settings sidebar: **Settings → Debug**.
+- Shows server-side debug info: API base URL, API key set, models count, Node version.
+- Optional **Refresh router /models** button.
+
+### Test Results (debug/test_rag_cases.py)
+
+| ID | Category | Before | After |
+|----|----------|--------|-------|
+| A1 | Wrong retrieval — intubation | ❌ | ✅ |
+| A2 | Wrong retrieval — temporal lobe | ❌ | ✅ |
+| A3 | Wrong retrieval — artery of Percheron | ❌ | ✅ |
+| A4 | Wrong retrieval — mild GCS | ❌ | ✅ |
+| B1 | Table truncation — Marshall CT | ❌ | ✅ |
+| B2 | Table truncation — SDH surgery | ❌ | ✅ |
+| B3 | Table truncation — IC hypertension | ❌ | ✅ |
+| C1 | Hallucination — craniopharyngioma | ❌ | ✅ |
+| D1 | Correction — hyperventilation | ❌ | ✅ |
+| E1 | Sanity — basal skull fracture | ✅ | ✅ |
+| E2 | Sanity — mild TBI head CT | ✅ | ✅ |
+
+**Pass rate: 11/11 (100%)**
+
+---
+
 ## v1.4.0 — 2026-03-07
 
 ### Summary
