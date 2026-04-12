@@ -2,6 +2,66 @@
 
 ---
 
+## v1.7.0 — 2026-04-12  *(NINDS-CDE Knowledge Graph)*
+
+> **Rollback:** `git checkout v1.6.5 -- backend` → `docker exec wisemind-backend kill -HUP 1`
+
+### Summary
+Replaced ad-hoc CSV ontology (`wisemind_ontology_terms_v2.csv`) with a full **NINDS-standard
+knowledge graph** built from official CDE xlsx exports. Enables structured, standards-compliant
+ontology lookup integrated into the RAG pipeline.
+
+### New Features
+
+#### NINDS-CDE Parsing
+- Parsed official NINDS TBI CDE xlsx → **1,492 unique CDEs** across 8,648 rows
+- Parsed official NINDS SCI CDE xlsx → **1,064 unique CDEs** across 1,597 rows
+- Fields retained: CDE ID, Name, Variable, Definition, Domain, Subdomain, Classification, SNOMED, LOINC, CRF Module
+
+#### Knowledge Graph Construction (`cde_graph.pkl`)
+- **NetworkX DiGraph**: Disease → Domain → Subdomain → CDE → SNOMED node hierarchy
+- **2,615 nodes** total: 2,556 CDE nodes + domain/subdomain/SNOMED nodes
+- **137 CDEs cross-linked** between TBI and SCI (shared CDE ID)
+- SNOMED CT edges: CDE↔external terminology linking
+
+#### Semantic Embedding + FAISS Index (`cde_faiss.index`)
+- All 2,556 CDE nodes embedded with `all-MiniLM-L6-v2` (384-dim)
+- Inner-product FAISS index (normalized) for fast cosine similarity search
+- Build time: ~8 seconds on GPU
+
+#### RAG Pipeline Integration
+- **`_cde_graph_expand_query()`**: appends matching NINDS variable names to RAG query
+  → e.g., "intracranial pressure" → query + "IntracranPressEpisode IntracranPressMonitorStop..."
+- **`_cde_context_snippet()`**: injects top-3 CDE definitions as `[NINDS CDE Reference]` block
+  into LLM prompt → authoritative standardized definitions grounding the answer
+- Both functions use threshold filtering (score ≥ 0.50–0.55) to suppress low-confidence matches
+
+#### New API Endpoint
+- `GET /v1/cde/search?q=<query>&k=<n>` — semantic CDE search, returns CDE name, variable, domain, definition, SNOMED
+- `GET /v1/admin/metrics` — now includes `cde_graph.loaded` and `cde_graph.node_count`
+
+### Files Added on Server
+```
+/workspace/WiseMind/ninds_cde_graph/
+  cde_graph.pkl       (9.7 MB  — NetworkX DiGraph with embeddings)
+  cde_faiss.index     (3.8 MB  — FAISS IndexFlatIP)
+  cde_node_ids.json   (50  KB  — node ID list for index ↔ graph mapping)
+  cde_flat.json       (1.3 MB  — flat JSON for quick lookups)
+/workspace/WiseMind/ninds_cde_tbi.json   (TBI CDEs)
+/workspace/WiseMind/ninds_cde_sci.json   (SCI CDEs)
+```
+
+### Why Graph + Embedding (vs. pure embedding)?
+| Capability | Pure Embedding | Graph + Embedding |
+|---|---|---|
+| Semantic CDE lookup | ✓ | ✓ |
+| Domain hierarchy queries | ✗ | ✓ |
+| SNOMED cross-reference | ✗ | ✓ |
+| "Core CDEs in Neurological Outcomes" | ✗ | ✓ |
+| Multi-hop: TBI↔SCI shared terms | ✗ | ✓ |
+
+---
+
 ## v1.6.x — 2026-04-12  *(RAG Quality Pipeline)*
 
 > **Rollback:** `git checkout v1.5.1` on `backend` repo → reload Gunicorn (`kill -HUP 1` inside container)
