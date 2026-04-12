@@ -1,0 +1,353 @@
+{
+  "traumatic_brain_injury": {
+    "chapters": [
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68
+    ],
+    "page_range": [
+      983,
+      1124
+    ],
+    "keywords": [
+      "TBI",
+      "traumatic brain",
+      "head injury",
+      "head trauma",
+      "hematoma",
+      "subdural",
+      "epidural",
+      "contusion",
+      "cerebral edema",
+      "ICP",
+      "intracranial pressure",
+      "GCS",
+      "glasgow",
+      "diffuse axonal",
+      "DAI",
+      "skull fracture",
+      "concussion",
+      "TICH",
+      "EDH",
+      "SDH",
+      "postconcussion",
+      "decompressive craniectomy"
+    ]
+  },
+  "spinal_cord_injury": {
+    "chapters": [
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76
+    ],
+    "page_range": [
+      1120,
+      1268
+    ],
+    "keywords": [
+      "spinal cord",
+      "SCI",
+      "spinal trauma",
+      "cervical",
+      "thoracic spine",
+      "lumbar",
+      "ASIA",
+      "neurogenic shock",
+      "autonomic dysreflexia",
+      "quadriplegia",
+      "paraplegia",
+      "cord compression",
+      "SCIWORA",
+      "spinal injury"
+    ]
+  },
+  "spine_degenerative": {
+    "chapters": [
+      77,
+      78,
+      79,
+      80,
+      81,
+      82
+    ],
+    "page_range": [
+      1262,
+      1352
+    ],
+    "keywords": [
+      "disc herniation",
+      "degenerative",
+      "stenosis",
+      "spondylosis",
+      "radiculopathy",
+      "myelopathy",
+      "disc disease",
+      "spondylolisthesis",
+      "laminectomy",
+      "discectomy",
+      "ACDF",
+      "fusion",
+      "foraminotomy"
+    ]
+  },
+  "vascular": {
+    "chapters": [
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97
+    ],
+    "page_range": [
+      1344,
+      1629
+    ],
+    "keywords": [
+      "aneurysm",
+      "AVM",
+      "arteriovenous",
+      "stroke",
+      "SAH",
+      "subarachnoid",
+      "intracerebral hemorrhage",
+      "ICH",
+      "ischemic",
+      "cavernous",
+      "dural fistula",
+      "carotid",
+      "vasospasm",
+      "coiling",
+      "clipping",
+      "thrombosis",
+      "embolism",
+      "infarct",
+      "TIA",
+      "cerebrovascular"
+    ]
+  },
+  "tumor": {
+    "chapters": [
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "page_range": [
+      609,
+      988
+    ],
+    "keywords": [
+      "tumor",
+      "glioma",
+      "glioblastoma",
+      "GBM",
+      "meningioma",
+      "metastasis",
+      "lymphoma",
+      "ependymoma",
+      "medulloblastoma",
+      "pituitary",
+      "craniopharyngioma",
+      "schwannoma",
+      "neuroma",
+      "resection",
+      "WHO grade",
+      "radiation",
+      "chemotherapy",
+      "temozolomide",
+      "bevacizumab",
+      "oncology"
+    ]
+  },
+  "hydrocephalus": {
+    "chapters": [
+      25,
+      26
+    ],
+    "page_range": [
+      445,
+      487
+    ],
+    "keywords": [
+      "hydrocephalus",
+      "CSF",
+      "shunt",
+      "ventriculoperitoneal",
+      "VP shunt",
+      "ETV",
+      "aqueductal stenosis",
+      "NPH",
+      "normal pressure",
+      "ventriculomegaly",
+      "ICP",
+      "lumbar drain",
+      "ventriculostomy"
+    ]
+  },
+  "infection": {
+    "chapters": [
+      20,
+      21,
+      22,
+      23
+    ],
+    "page_range": [
+      333,
+      427
+    ],
+    "keywords": [
+      "meningitis",
+      "encephalitis",
+      "abscess",
+      "infection",
+      "bacterial",
+      "viral",
+      "fungal",
+      "empyema",
+      "ventriculitis",
+      "septic",
+      "osteomyelitis",
+      "discitis",
+      "HIV",
+      "herpes"
+    ]
+  },
+  "functional_pain": {
+    "chapters": [
+      29,
+      30,
+      31,
+      32,
+      113,
+      114
+    ],
+    "page_range": [
+      511,
+      1887
+    ],
+    "keywords": [
+      "pain",
+      "neuralgia",
+      "trigeminal",
+      "DBS",
+      "deep brain stimulation",
+      "SCS",
+      "spinal cord stimulation",
+      "epilepsy",
+      "seizure",
+      "Parkinson",
+      "dystonia",
+      "tremor",
+      "movement disorder"
+    ]
+  },
+  "neurology_general": {
+    "chapters": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "page_range": [
+      175,
+      1548
+    ],
+    "keywords": [
+      "dementia",
+      "Alzheimer",
+      "coma",
+      "brain death",
+      "consciousness",
+      "neuropathy",
+      "multiple sclerosis",
+      "MS",
+      "neurology",
+      "CSF analysis",
+      "lumbar puncture",
+      "EEG",
+      "seizure"
+    ]
+  },
+  "procedures": {
+    "chapters": [
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112
+    ],
+    "page_range": [
+      1628,
+      1866
+    ],
+    "keywords": [
+      "craniotomy",
+      "approach",
+      "operative",
+      "surgical technique",
+      "postoperative",
+      "complication",
+      "intraoperative",
+      "positioning",
+      "anesthesia",
+      "monitoring"
+    ]
+  }
+}
