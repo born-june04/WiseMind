@@ -1,6 +1,6 @@
 # WiseMind System Architecture
 
-> Version: v1.7.0 | Updated: 2026-04-12
+> Version: v1.7.2 | Updated: 2026-04-12
 
 ---
 
@@ -182,7 +182,58 @@ flowchart TD
 
 ---
 
-## Level 2 — Module: LLM Generation & Quality
+## Level 2 - Module: Definitions Layer (v1.7.2)
+
+> Single file `hq_terms.json` — all curated sources unified into one load.
+> Mode controlled by `DEFINITIONS_MODE` env var.
+
+```mermaid
+flowchart TD
+    ENV{"DEFINITIONS_MODE env var"}
+
+    subgraph HQ["hq mode  DEFAULT  v1.7.2"]
+        HQ1["hq_terms.json\n246 terms  379 lookup keys  single file load"]
+        HQ2["manual (17)\nGCS, ICP, CPP, SDH, EDH, SAH\nBTF, Mannitol, PbtO2, EVD..."]
+        HQ3["professor (94)\nGCS subscores: M1-M6, E1-E4, V1-V5\nFC x4, BUE/BLE, PERRLA, EOMI\nmuscle groups, ASIA exam terms"]
+        HQ4["spine_csv (135)\nCervical/Thoracic/Lumbar anatomy\nTLICS, Denis, McCormick\nAIS grades A-E, SCI syndromes"]
+        HQ1 --> HQ2
+        HQ1 --> HQ3
+        HQ1 --> HQ4
+    end
+
+    subgraph FULL["full mode  ROLLBACK"]
+        F1["medical_terms.json\n1,749 terms\nauto-generated from ontology CSV\n(noisy, low precision)"]
+    end
+
+    MATCH["match_in_text(query)\nword-boundary regex per alias\nlongest-first sort  max 6 matches"]
+    CTX["Medical Term Definitions block\ninjected into LLM prompt before RAG context"]
+
+    ENV -->|"hq"| HQ
+    ENV -->|"full"| FULL
+    HQ --> MATCH
+    FULL --> MATCH
+    MATCH --> CTX
+```
+
+**Mode comparison (2026-04-12):**
+
+| | HQ mode (default) | Full mode (rollback) |
+|---|---|---|
+| File | `hq_terms.json` | `medical_terms.json` |
+| Terms | **246** | 1,749 |
+| Lookup keys | **379** | 1,750 |
+| Load time | **single file, <1 ms** | multi-source, ~23 ms |
+| Coverage (test queries) | **66.7%** | 58.3% |
+| Hit rate | **30.0%** | 26.7% |
+| Professor entries | **included** | included |
+| Spine anatomy/SCI | **included** | not present |
+| Ontology CSV noise | **excluded** | included |
+
+> Rollback: `DEFINITIONS_MODE=full` env var + container restart
+
+---
+
+## Level 2 - Module: LLM Generation & Quality
 
 > Two generation modes and post-generation quality scoring.
 
