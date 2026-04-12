@@ -1,0 +1,120 @@
+{
+  "timestamp": "2026-04-12T06:33:23",
+  "summary": {
+    "csv_avg_latency_ms": 0.003,
+    "graph_avg_latency_ms": 40.174,
+    "csv_hit_rate_pct": 78.3,
+    "graph_hit_rate_pct": 69.6,
+    "csv_scale_rules": 9,
+    "graph_cde_count": 2556,
+    "graph_domain_hierarchy": true,
+    "graph_snomed_links": true,
+    "graph_tbi_sci_crosslinks": 137
+  },
+  "per_query": [
+    {
+      "query": "What is intracranial pressure monitoring?",
+      "csv_ms": 0.01,
+      "csv_new_terms": 4,
+      "csv_hits": 2,
+      "csv_expansion": "ICP elevated brain herniation",
+      "graph_ms": 306.7,
+      "graph_new_terms": 6,
+      "graph_hits": 2,
+      "graph_expansion": "ICPMonitorStopRsn Intracranial pressure monitori ICPMeanDailyMeasr Intracranial pressure mean dai",
+      "graph_top_score": 0.757,
+      "n_expected": 3
+    },
+    {
+      "query": "Glasgow Coma Scale score assessment in TBI",
+      "csv_ms": 0.01,
+      "csv_new_terms": 3,
+      "csv_hits": 2,
+      "csv_expansion": "GCS consciousness neurological",
+      "graph_ms": 3.0,
+      "graph_new_terms": 9,
+      "graph_hits": 2,
+      "graph_expansion": "GCSDateAndTime Glasgow coma scale date and ti PedGCSDateAndTime Pediatric Glasgow coma scale d",
+      "graph_top_score": 0.74,
+      "n_expected": 3
+    },
+    {
+      "query": "Spinal cord injury ASIA impairment classification",
+      "csv_ms": 0.0,
+      "csv_new_terms": 3,
+      "csv_hits": 3,
+      "csv_expansion": "SCI paralysis myelopathy",
+      "graph_ms": 2.1,
+      "graph_new_terms": 8,
+      "graph_hits": 3,
+      "graph_expansion": "ASIAImprmntScale ASIA Impairment Scale NTSCIEtioAx1LevTwoClassCat Non traumatic spinal cord inju",
+      "graph_top_score": 0.805,
+      "n_expected": 3
+    },
+    {
+      "query": "Post-concussive symptoms after mild TBI",
+      "csv_ms": 0.0,
+      "csv_new_terms": 3,
+      "csv_hits": 2,
+      "csv_expansion": "concussion mTBI headache",
+      "graph_ms": 2.0,
+      "graph_new_terms": 10,
+      "graph_hits": 2,
+      "graph_expansion": "TBISympTyp Traumatic Brain Injury symptom SwallowingPostTBIProbInd Swallowing  post-TBI problem i",
+      "graph_top_score": 0.604,
+      "n_expected": 3
+    },
+    {
+      "query": "Neuropsychological assessment after brain injury",
+      "csv_ms": 0.0,
+      "csv_new_terms": 3,
+      "csv_hits": 3,
+      "csv_expansion": "cognitive memory attention",
+      "graph_ms": 1.97,
+      "graph_new_terms": 5,
+      "graph_hits": 2,
+      "graph_expansion": "TBIWrsnSympCogntInd Traumatic brain injury worsen  TBISympRatingCode Traumatic brain injury symptom",
+      "graph_top_score": 0.646,
+      "n_expected": 3
+    },
+    {
+      "query": "Functional outcome measurement rehabilitation",
+      "csv_ms": 0.0,
+      "csv_new_terms": 2,
+      "csv_hits": 1,
+      "csv_expansion": "ADL rehabilitation disability",
+      "graph_ms": 1.89,
+      "graph_new_terms": 7,
+      "graph_hits": 1,
+      "graph_expansion": "TherpyRehabOngngInd Therapy rehabilitation ongoing RehabServicesAessmentInd Rehabilitation services assess",
+      "graph_top_score": 0.677,
+      "n_expected": 2
+    },
+    {
+      "query": "Blood pressure management in acute SCI",
+      "csv_ms": 0.0,
+      "csv_new_terms": 3,
+      "csv_hits": 3,
+      "csv_expansion": "MAP hypotension hypertension",
+      "graph_ms": 1.88,
+      "graph_new_terms": 0,
+      "graph_hits": 2,
+      "graph_expansion": "",
+      "graph_top_score": 0.451,
+      "n_expected": 3
+    },
+    {
+      "query": "CT scan imaging findings traumatic brain injury",
+      "csv_ms": 0.0,
+      "csv_new_terms": 5,
+      "csv_hits": 2,
+      "csv_expansion": "TBI head trauma concussion imaging radiology",
+      "graph_ms": 1.85,
+      "graph_new_terms": 7,
+      "graph_hits": 2,
+      "graph_expansion": "PenetratngInjBrainAssocFindTyp Penetrating injury brain assoc TBICauseTyp TBI cause type",
+      "graph_top_score": 0.604,
+      "n_expected": 3
+    }
+  ]
+}

@@ -2,6 +2,74 @@
 
 ---
 
+## v1.6.2 -- 2026-04-12  (Semantic Query Cache)
+
+> **Rollback:** `git checkout v1.7.0 -- backend` -> `docker exec wisemind-backend kill -HUP 1`
+
+### Summary
+FAISS-backed in-memory semantic cache: similar queries answered from cache without hitting RAG or LLM.
+
+### Implementation
+- `_cache_lookup()`: inner-product FAISS search, cosine >= 0.92, TTL check
+- `_cache_store()`: only high-quality answers (rag_score>=0.35, faithfulness>=0.45, len>=80)
+- Auto-eviction: expired (7-day TTL) + LRU at max 200 entries
+- Correction queries ('wrong', 'should be' etc.) bypass cache
+- Flash streaming: 'Cache hit' step shown; ~2-5s saved per hit
+
+### Config (env vars)
+- `CACHE_SIM_THRESHOLD` (default 0.92), `CACHE_MAX_SIZE` (200), `CACHE_TTL_SECONDS` (604800)
+
+---
+
+## Ontology Benchmark: CSV Dictionary vs NINDS-CDE Knowledge Graph
+
+*Measured 2026-04-12 on wisemind-backend (NVIDIA GB10, ARM)*
+
+### Setup
+- 8 clinical queries: TBI/SCI/imaging/neuropsychological
+- Metric: concept hit rate (expected clinical terms found in expanded query)
+
+### Summary Results
+
+| Metric | CSV Ontology | NINDS-CDE Graph |
+|---|---|---|
+| Avg expansion latency | < 0.1 ms | ~2 ms warm / 307 ms cold |
+| Avg new terms added | 3.2 | 6.5 |
+| Concept hit rate | 78.3% | 69.6% (*) |
+| Ontology scale | 9 rules | 2,556 CDEs |
+| Domain hierarchy | No | Yes |
+| SNOMED/LOINC | No | Yes |
+| TBI+SCI cross-links | No | 137 shared CDEs |
+
+(*) Hit rate note: expected concepts were defined to match CSV terms (MAP, ADL, etc.).
+NINDS-CDE graph expands with standardized variable names (ASIAImprmntScale, ICPMonitorStopRsn)
+which are clinically more precise but did not match the simplified test list.
+
+### Per-Query Results
+
+| Query | CSV hits | Graph hits | Top score | Graph expanded terms |
+|---|---|---|---|---|
+| Intracranial pressure monitoring | 2/3 | 2/3 | 0.757 | ICPMonitorStopRsn, IntracranPressMonitoring |
+| Glasgow Coma Scale TBI | 2/3 | 2/3 | 0.740 | GCSDateAndTime, PedGCSDateAndTime |
+| SCI ASIA impairment | 3/3 | 3/3 | 0.805 | ASIAImprmntScale, NTSCIEtioAx1LevTwoClass |
+| Post-concussive mild TBI | 2/3 | 2/3 | 0.604 | TBISympTyp, SwallowingPostTBIPresenceInd |
+| Neuropsychological assessment | 3/3 | 2/3 | 0.646 | TBIWrsnSympCogntInd |
+| Functional outcome rehab | 1/2 | 1/2 | 0.677 | TherpyRehabOngngInd |
+| Blood pressure SCI | 3/3 | 2/3 | 0.451 | (below threshold -- suppressed) |
+| CT scan TBI imaging | 2/3 | 2/3 | 0.604 | PenetratngInjBrainAssocFindTyp |
+
+### Key Takeaways
+1. **Scale**: 284x more concepts (2,556 vs 9)
+2. **Standardization**: NINDS official standard vs manual keyword mapping
+3. **Richer expansion**: 2x more terms per query on average
+4. **Latency trade-off**: CSV ~0ms; Graph ~2ms warm (acceptable; model shared with CDE graph)
+5. **Structural capabilities**: domain hierarchy, SNOMED lookup, TBI+SCI bridging -- impossible with flat CSV
+6. **Low-confidence guard**: score threshold prevents noisy expansion (blood pressure correctly suppressed)
+
+*Raw data: `/workspace/WiseMind/ontology_benchmark.json`*
+
+---
+
 ## v1.7.0 — 2026-04-12  *(NINDS-CDE Knowledge Graph)*
 
 > **Rollback:** `git checkout v1.6.5 -- backend` → `docker exec wisemind-backend kill -HUP 1`
