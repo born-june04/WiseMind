@@ -1,6 +1,6 @@
 # WiseMind System Architecture
 
-> Version: v1.7.2 | Updated: 2026-04-12
+> Version: v1.7.3 | Updated: 2026-04-12
 
 ---
 
@@ -27,7 +27,7 @@ flowchart LR
     subgraph KNOW["Knowledge Layer"]
         BOOK["Greenberg Handbook\n~18,000 chunks"]
         GRAPH["NINDS-CDE Graph\n2,556 CDEs"]
-        DEFS["Medical Terms\n1,730 definitions"]
+        DEFS["hq_terms.json\n243 curated definitions\n(professor 94 + spine 135 + engineer 14)"]
     end
 
     subgraph INFRA["Infrastructure"]
@@ -157,7 +157,7 @@ flowchart TD
     ENRICH["Enrich with Chunk Metadata\nfigures / tables / section titles"]
     CONTEXT["Format RAG Context\n[1] Section ... content ...\n[2] Section ... content ..."]
     CDE_SNIP["Inject NINDS-CDE Snippet\n[NINDS CDE Reference]\nStandardized definitions"]
-    MED_DEFS["Inject Medical Definitions\n1,730 terms → matched subset"]
+    MED_DEFS["Inject Medical Definitions\nhq_terms.json 243 terms matched subset\nword-boundary regex  max 6 matches"]
 
     HALT{"RAG results\nempty?"}
     BLOCK["⛔ Block Generation\nReturn: no evidence found"]
@@ -182,7 +182,7 @@ flowchart TD
 
 ---
 
-## Level 2 - Module: Definitions Layer (v1.7.2)
+## Level 2 - Module: Definitions Layer (v1.7.3)
 
 > Single file `hq_terms.json` — all curated sources unified into one load.
 > Mode controlled by `DEFINITIONS_MODE` env var.
@@ -191,11 +191,11 @@ flowchart TD
 flowchart TD
     ENV{"DEFINITIONS_MODE env var"}
 
-    subgraph HQ["hq mode  DEFAULT  v1.7.2"]
-        HQ1["hq_terms.json\n246 terms  379 lookup keys  single file load"]
-        HQ2["manual (17)\nGCS, ICP, CPP, SDH, EDH, SAH\nBTF, Mannitol, PbtO2, EVD..."]
-        HQ3["professor (94)\nGCS subscores: M1-M6, E1-E4, V1-V5\nFC x4, BUE/BLE, PERRLA, EOMI\nmuscle groups, ASIA exam terms"]
-        HQ4["spine_csv (135)\nCervical/Thoracic/Lumbar anatomy\nTLICS, Denis, McCormick\nAIS grades A-E, SCI syndromes"]
+    subgraph HQ["hq mode  DEFAULT  v1.7.3"]
+        HQ1["hq_terms.json\n243 terms  379 lookup keys  single file load"]
+        HQ2["professor (94)  PRIORITY 1\nGCS subscores M1-M6 E1-E4 V1-V5\nFC x4, BUE/BLE, PERRLA, EOMI\nmuscle groups, ASIA exam terms"]
+        HQ3["spine_csv (135)  PRIORITY 2\nCervical/Thoracic/Lumbar anatomy\nTLICS, Denis, McCormick\nAIS grades A-E, SCI syndromes"]
+        HQ4["engineer (14)  PRIORITY 3  fill gaps only\nICP, CPP, MAP, TBI, EVD, DAI, SAH\nMannitol, BTF, PbtO2, Cushing triad\nDecompressive Craniectomy, FOUR Score"]
         HQ1 --> HQ2
         HQ1 --> HQ3
         HQ1 --> HQ4
@@ -215,12 +215,20 @@ flowchart TD
     MATCH --> CTX
 ```
 
+**Source breakdown (v1.7.3):**
+
+| Source | Count | Priority | What it contains |
+|---|---|---|---|
+| **professor** | 94 | 1 (highest) | Professor-authored: GCS subscores (M1-M6, E1-E4, V1-V5), GCS/SDH/EDH with acronym aliases, clinical exam abbreviations (FC x4, BUE/BLE, PERRLA), muscle groups, ASIA exam terms |
+| **spine_csv** | 135 | 2 | Spine anatomy/trauma/classification CSVs 2026-04-06: vertebral anatomy, TLICS, Denis, McCormick, AIS grades A-E, SCI syndromes |
+| **engineer** | 14 | 3 (fill gaps only) | Engineer-written clinical definitions with numeric thresholds: ICP, CPP, MAP, TBI, EVD, DAI, SAH, Mannitol dose, BTF guidelines, PbtO2, Cushing triad, DC criteria, FOUR Score |
+
 **Mode comparison (2026-04-12):**
 
 | | HQ mode (default) | Full mode (rollback) |
 |---|---|---|
 | File | `hq_terms.json` | `medical_terms.json` |
-| Terms | **246** | 1,749 |
+| Terms | **243** | 1,749 |
 | Lookup keys | **379** | 1,750 |
 | Load time | **single file, <1 ms** | multi-source, ~23 ms |
 | Coverage (test queries) | **66.7%** | 58.3% |
@@ -425,7 +433,7 @@ timeline
     title WiseMind Feature Roadmap
     section Foundation
         v1.3 : Greenberg ColBERT RAG
-             : Medical terms dictionary 1730
+             : Medical terms dictionary (ontology CSV, ~1730 terms)
              : Middle layer BTF Guidelines
              : Evidence conflict expression
     section UI and Accuracy
@@ -444,10 +452,15 @@ timeline
         v1.6.4 : Hallucination guard
         v1.6.5 : Multi-turn query understanding
     section Ontology
-        v1.7 : NINDS-CDE knowledge graph
-             : 2556 CDEs TBI and SCI
-             : Query expansion and definition injection
-             : /v1/cde/search API
+        v1.7.0 : NINDS-CDE knowledge graph
+               : 2556 CDEs TBI and SCI
+               : Query expansion and definition injection
+               : /v1/cde/search API
+        v1.7.1 : Spine-curated definitions 135 terms
+               : Replace ontology CSV with high-quality CSV
+        v1.7.2 : hq_terms.json unified 243 terms
+               : professor 94 + spine 135 + engineer 14
+               : Priority order professor > spine > engineer
 ```
 
 ---
