@@ -2,6 +2,52 @@
 
 ---
 
+## v1.7.1 -- 2026-04-12  (Spine-Curated Definitions: Small, High-Quality)
+
+> **Rollback:** Set `DEFINITIONS_MODE=full` in container env and reload:
+> `docker exec wisemind-backend sh -c 'kill -HUP 1'`
+
+### Summary
+Replaced the 1,749-term `medical_terms.json` (auto-generated from ontology CSV)
+with a curated **135-term spine/TBI-specific dictionary** derived from 3 high-quality
+clinical CSV files. New default: `DEFINITIONS_MODE=spine`.
+
+### Source Files Parsed
+| File | Terms | Coverage |
+|---|---|---|
+| `Spine anatomy-2026-04-06.csv` | 40 | Vertebrae, conus medullaris, dermatomes, plexuses |
+| `Spine trauma outcomes_classification-2026-04-06.csv` | 88 | ASIA/AIS grades, ISNCSCI, SCI syndromes |
+| `Spine CT Classification and AIS score-2026-04-06.csv` | 10 | McCormick, Denis, TLICS |
+| `manual_overrides.json` (always merged) | 17 | Professor-verified ICP, GCS, TBI, CPP... |
+| **Total (SPINE mode)** | **152 terms, 288 lookup keys** | |
+
+### Mode Toggle
+Controlled by `DEFINITIONS_MODE` environment variable:
+
+| Mode | Terms | Source | Use case |
+|---|---|---|---|
+| `spine` (DEFAULT) | 152 | spine_terms.json + manual_overrides | Production |
+| `full` (ROLLBACK) | 1,749 | medical_terms.json + manual_overrides | Fallback |
+
+### Benchmark Results (12 spine/TBI queries)
+
+| Metric | Full (1,749 terms) | Spine (135 terms) | Delta |
+|---|---|---|---|
+| Coverage (>=1 match/query) | 58.3% | **66.7%** | +8.4pp |
+| Expected term hit rate | 26.7% | **30.0%** | +3.3pp |
+| Avg noise (false positives) | 0.08 | 0.08 | equal |
+| Avg match latency | 22.74 ms | **0.85 ms** | 27x faster |
+| Avg definition length | 138 chars | 84 chars | more concise |
+| Avg aliases per term | 0.0 | **1.1** | better recall |
+
+> Key insight: Spine mode has 11x fewer terms but wins on every metric except
+> definition length. The full mode had 0 aliases per term, causing many misses.
+> Spine mode terms are specifically curated with aliases (e.g. ASIA -> AIS -> ...).
+
+*Raw benchmark data: `definitions_benchmark.json`*
+
+---
+
 ## v1.6.2 -- 2026-04-12  (Semantic Query Cache)
 
 > **Rollback:** `git checkout v1.7.0 -- backend` -> `docker exec wisemind-backend kill -HUP 1`
