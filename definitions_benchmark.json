@@ -1,0 +1,317 @@
+{
+  "timestamp": "2026-04-12T18:58:26",
+  "full": {
+    "mode": "full",
+    "n_terms": 1749,
+    "coverage_pct": 58.3,
+    "hit_rate_pct": 26.7,
+    "avg_noise": 0.08,
+    "avg_latency_ms": 22.74,
+    "avg_def_length": 138.0,
+    "avg_aliases": 0.0,
+    "per_query": [
+      {
+        "query": "What is the ASIA impairment scale for spinal cord injur",
+        "n_matched": 3,
+        "expected_hits": 1,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 35.48,
+        "matched_terms": [
+          "asia impairment scale",
+          "Spinal cord injury",
+          "Spinal Cord"
+        ]
+      },
+      {
+        "query": "Describe cervical spine anatomy and the conus medullari",
+        "n_matched": 1,
+        "expected_hits": 0,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 21.55,
+        "matched_terms": [
+          "Anatomy"
+        ]
+      },
+      {
+        "query": "What are TLICS and Denis classification for spine fract",
+        "n_matched": 0,
+        "expected_hits": 0,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 21.64,
+        "matched_terms": []
+      },
+      {
+        "query": "Neurological level of injury and motor complete SCI",
+        "n_matched": 0,
+        "expected_hits": 0,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 21.47,
+        "matched_terms": []
+      },
+      {
+        "query": "How is Glasgow Coma Scale used to assess TBI severity?",
+        "n_matched": 3,
+        "expected_hits": 3,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 21.52,
+        "matched_terms": [
+          "Coma",
+          "GCS",
+          "TBI"
+        ]
+      },
+      {
+        "query": "Explain intracranial pressure monitoring in traumatic b",
+        "n_matched": 3,
+        "expected_hits": 1,
+        "n_expected": 2,
+        "noise": 1,
+        "latency_ms": 21.7,
+        "matched_terms": [
+          "traumatic brain injury",
+          "brain injury",
+          "ICP"
+        ]
+      },
+      {
+        "query": "What is anterior cord syndrome vs central cord syndrome",
+        "n_matched": 2,
+        "expected_hits": 2,
+        "n_expected": 2,
+        "noise": 0,
+        "latency_ms": 21.58,
+        "matched_terms": [
+          "anterior cord syndrome",
+          "central cord syndrome"
+        ]
+      },
+      {
+        "query": "Describe the Denis three-column model for thoracolumbar",
+        "n_matched": 0,
+        "expected_hits": 0,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 21.69,
+        "matched_terms": []
+      },
+      {
+        "query": "AIS Grade A vs Grade C spinal cord injury outcomes",
+        "n_matched": 2,
+        "expected_hits": 0,
+        "n_expected": 2,
+        "noise": 0,
+        "latency_ms": 21.55,
+        "matched_terms": [
+          "Spinal cord injury",
+          "Spinal Cord"
+        ]
+      },
+      {
+        "query": "What is spinal shock and how does it differ from neurog",
+        "n_matched": 0,
+        "expected_hits": 0,
+        "n_expected": 2,
+        "noise": 0,
+        "latency_ms": 21.74,
+        "matched_terms": []
+      },
+      {
+        "query": "Explain sacral sparing in incomplete SCI",
+        "n_matched": 0,
+        "expected_hits": 0,
+        "n_expected": 2,
+        "noise": 0,
+        "latency_ms": 21.39,
+        "matched_terms": []
+      },
+      {
+        "query": "Conus medullaris syndrome vs cauda equina syndrome",
+        "n_matched": 1,
+        "expected_hits": 1,
+        "n_expected": 2,
+        "noise": 0,
+        "latency_ms": 21.58,
+        "matched_terms": [
+          "cauda equina syndrome"
+        ]
+      }
+    ]
+  },
+  "spine": {
+    "mode": "spine",
+    "n_terms": 152,
+    "coverage_pct": 66.7,
+    "hit_rate_pct": 30.0,
+    "avg_noise": 0.08,
+    "avg_latency_ms": 0.85,
+    "avg_def_length": 84.0,
+    "avg_aliases": 1.1,
+    "per_query": [
+      {
+        "query": "What is the ASIA impairment scale for spinal cord injur",
+        "n_matched": 1,
+        "expected_hits": 0,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 3.87,
+        "matched_terms": [
+          "Spinal Cord"
+        ]
+      },
+      {
+        "query": "Describe cervical spine anatomy and the conus medullari",
+        "n_matched": 2,
+        "expected_hits": 2,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 0.57,
+        "matched_terms": [
+          "Conus Medullaris",
+          "Cervical Spine"
+        ]
+      },
+      {
+        "query": "What are TLICS and Denis classification for spine fract",
+        "n_matched": 0,
+        "expected_hits": 0,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 0.59,
+        "matched_terms": []
+      },
+      {
+        "query": "Neurological level of injury and motor complete SCI",
+        "n_matched": 1,
+        "expected_hits": 0,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 0.57,
+        "matched_terms": [
+          "Frankel Grade A"
+        ]
+      },
+      {
+        "query": "How is Glasgow Coma Scale used to assess TBI severity?",
+        "n_matched": 2,
+        "expected_hits": 2,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 0.57,
+        "matched_terms": [
+          "GCS",
+          "TBI"
+        ]
+      },
+      {
+        "query": "Explain intracranial pressure monitoring in traumatic b",
+        "n_matched": 2,
+        "expected_hits": 2,
+        "n_expected": 2,
+        "noise": 0,
+        "latency_ms": 0.58,
+        "matched_terms": [
+          "ICP",
+          "TBI"
+        ]
+      },
+      {
+        "query": "What is anterior cord syndrome vs central cord syndrome",
+        "n_matched": 0,
+        "expected_hits": 0,
+        "n_expected": 2,
+        "noise": 0,
+        "latency_ms": 0.58,
+        "matched_terms": []
+      },
+      {
+        "query": "Describe the Denis three-column model for thoracolumbar",
+        "n_matched": 1,
+        "expected_hits": 0,
+        "n_expected": 3,
+        "noise": 0,
+        "latency_ms": 0.59,
+        "matched_terms": [
+          "Vertebral Endplates"
+        ]
+      },
+      {
+        "query": "AIS Grade A vs Grade C spinal cord injury outcomes",
+        "n_matched": 2,
+        "expected_hits": 1,
+        "n_expected": 2,
+        "noise": 0,
+        "latency_ms": 0.56,
+        "matched_terms": [
+          "Spinal Cord",
+          "AIS Grade A"
+        ]
+      },
+      {
+        "query": "What is spinal shock and how does it differ from neurog",
+        "n_matched": 0,
+        "expected_hits": 0,
+        "n_expected": 2,
+        "noise": 0,
+        "latency_ms": 0.61,
+        "matched_terms": []
+      },
+      {
+        "query": "Explain sacral sparing in incomplete SCI",
+        "n_matched": 0,
+        "expected_hits": 0,
+        "n_expected": 2,
+        "noise": 0,
+        "latency_ms": 0.54,
+        "matched_terms": []
+      },
+      {
+        "query": "Conus medullaris syndrome vs cauda equina syndrome",
+        "n_matched": 3,
+        "expected_hits": 2,
+        "n_expected": 2,
+        "noise": 1,
+        "latency_ms": 0.56,
+        "matched_terms": [
+          "TLICS - Neurological Status: Cauda Equina",
+          "Conus Medullaris",
+          "Cauda Equina"
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "coverage_pct": {
+      "full": 58.3,
+      "spine": 66.7
+    },
+    "hit_rate_pct": {
+      "full": 26.7,
+      "spine": 30.0
+    },
+    "avg_noise": {
+      "full": 0.08,
+      "spine": 0.08
+    },
+    "avg_latency_ms": {
+      "full": 22.74,
+      "spine": 0.85
+    },
+    "avg_def_length": {
+      "full": 138.0,
+      "spine": 84.0
+    },
+    "avg_aliases": {
+      "full": 0.0,
+      "spine": 1.1
+    },
+    "n_terms": {
+      "full": 1749,
+      "spine": 152
+    }
+  }
+}
