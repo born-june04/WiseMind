@@ -2,6 +2,41 @@
 
 ---
 
+## v1.6.x — 2026-04-12  *(RAG Quality Pipeline)*
+
+> **Rollback:** `git checkout v1.5.1` on `backend` repo → reload Gunicorn (`kill -HUP 1` inside container)
+
+---
+
+### v1.6.5 — Multi-turn Query Understanding
+- `_extract_context_entities()`: extracts medical acronyms/terms from last 3 conversation turns
+- Appended to RAG query so follow-up questions inherit prior context automatically
+
+### v1.6.4 — Hallucination Guard
+- Empty RAG result → generation blocked; returns "근거 없음" message instead of hallucinating
+- NLI faithfulness < 45% → streaming warning badge shown to user
+
+### v1.6.3 — NLI Faithfulness Scoring + Monitoring
+- Model: `cross-encoder/nli-deberta-v3-small` (GPU, ~280 MB, ~150 ms/query)
+- `_compute_faithfulness()`: NLI entailment score averaged over answer sentences
+- `_compute_confidence()`: hedge-phrase density + ColBERT retrieval score
+- SQLite `query_logs`: records topic, faithfulness, confidence, retrieval score, response ms per query
+- `GET /v1/admin/metrics?days=N`: aggregated stats + top topics + recent queries
+
+### v1.6.1 — Thinking Mode Robustness
+- Step 2 verdict uses multi-signal detection (string + JSON variant + natural language)
+- Prevents silent failures when model format deviates from expected
+
+### v1.6.0 — Topic-based RAG Page Range Filtering
+- `greenberg_chapter_map.json`: 10 topics × chapter ranges × keyword lists (auto-generated from chunks)
+- `_classify_topic()`: zero-latency keyword match → topic label
+- `_topic_page_filter()`: ChromaDB where-clause `page_index ∈ [lo, hi]`
+- Up to 80% search space reduction for topic-specific queries
+- Graceful fallback to full search if where-clause not supported
+
+---
+
+
 ## v1.4.2 — 2026-03-14
 
 ### Summary
